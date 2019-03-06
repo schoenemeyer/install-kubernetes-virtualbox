@@ -12,7 +12,11 @@ check ssh status with
 ```
 sudo service ssh status
 ```
-ssh in the VM and create root password abd do some basic installations:
+ssh in the VM and create root password and do some basic installations:
+```
+sudo passwd root
+sudo apt install git curl
+```
 ssh in the VM from the host and do some modifications, it is much more comfortable than inside Virtualbox terminal.
 ```
 sudo swapoff -a
@@ -24,10 +28,7 @@ sudo apt-get update
 sudo apt-get upgrade
 ```
 
-```
-sudo passwd root
-sudo apt install git curl
-```
+
 Now install docker (taken from https://docs.docker.com/install/linux/docker-ce/ubuntu/)    
 ```
 sudo apt-get install \
