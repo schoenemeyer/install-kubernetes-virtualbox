@@ -54,10 +54,11 @@ If you don’t want to preface the docker command with sudo, create a Unix group
 sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
-doublecheck whether docker daemon is running
+doublecheck whether docker daemon is running.
 ```   
 sudo docker run hello-world
-```   
+``` 
+If this is fine, then continue with the Kubernetes installation. The first step is to grab the key for the Kubernetes install.
 ```  
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
 touch /etc/apt/sources.list.d/kubernetes.list
