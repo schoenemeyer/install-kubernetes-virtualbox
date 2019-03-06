@@ -28,7 +28,7 @@ ssh in the VM and create root password abd do some basic installations:
 sudo passwd root
 sudo apt install git curl
 ```
-Now install docker (taken from https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+Now install docker (taken from https://docs.docker.com/install/linux/docker-ce/ubuntu/)    
 ```
 sudo apt-get install \
     apt-transport-https \
@@ -37,7 +37,6 @@ sudo apt-get install \
     gnupg-agent \
     software-properties-common
 ```
-
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 sudo apt-key fingerprint 0EBFCD88
@@ -45,7 +44,6 @@ sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
-```
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```   
