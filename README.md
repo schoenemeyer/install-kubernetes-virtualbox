@@ -48,10 +48,12 @@ sudo add-apt-repository \
    stable"
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
-sudo groupadd docker
 ```
-
-```   
+If you don’t want to preface the docker command with sudo, create a Unix group called docker and add users to it. When the Docker daemon starts, it creates a Unix socket accessible by members of the docker group.
+```
+sudo groupadd docker
+sudo usermod -aG docker $USER
+```
 doublecheck whether docker daemon is running
 ```   
 sudo docker run hello-world
@@ -60,8 +62,9 @@ sudo docker run hello-world
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
 touch /etc/apt/sources.list.d/kubernetes.list
 ```
-insert the following line 
-deb http://apt.kubernetes.io/ kubernetes-xenial main
+insert the following line   
+deb http://apt.kubernetes.io/ kubernetes-xenial main    
+
 Now move on as regular user
 ```
 sudo apt-get update
