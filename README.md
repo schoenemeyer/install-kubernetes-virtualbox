@@ -1,4 +1,5 @@
-# install-kubernetes-virtualbox
+# Install Kubernetes on a single node with Virtualbox
+
 This recipe will lead you through the installation of Kubernetes on a single Workstation running VirtualBox.
 I created two VMs (master and slave with Ubuntu 16.04.05.
 The master was created with 2 cores and 2GB RAM, the slave with 1 core and 1 GB.
