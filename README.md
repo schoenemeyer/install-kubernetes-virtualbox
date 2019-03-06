@@ -1,13 +1,17 @@
 # install-kubernetes-virtualbox
-install kubernetes on virtualbox
-
-Ubuntu 16.04.05 VM with bridged adapter
+This recipe will lead you through the installation of Kubernetes on a single Workstation running VirtualBox.
+I created two VMs (master and slave with Ubuntu 16.04.05.
+The master was created with 2 cores and 2GB RAM, the slave with 1 core and 1 GB.
+I used bridged adapter for the Network.
+Start with 
+```
 sudo apt-get install ssh
+```
 
-ssh in the VM from remote host
-
+ssh in the VM from remote host and do some modifications.
+```
 sudo swapoff -a
-
+```
 modify  vi /etc/fstab accordingly
 
 ```
