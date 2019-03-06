@@ -1,32 +1,108 @@
 # install-kubernetes-virtualbox
 install kubernetes on virtualbox
 
-
-bridged adapter
-
-sudo apt-get update
+Ubuntu 16.04.05 VM with bridged adapter
 sudo apt-get install ssh
 
-check status with
-sudo service ssh status
+ssh in the VM from remote host
 
+sudo swapoff -a
+
+modify  vi /etc/fstab accordingly
+
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+check ssh status with
+```
+sudo service ssh status
+```
 ssh in machine with root
 
 create root password:
-
+```
 sudo passwd root
+sudo apt install git curl
+
+Install docker
+
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+    
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo apt-key fingerprint 0EBFCD88
+
+   sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+   sudo apt-get update
+   
+   sudo apt-get install docker-ce docker-ce-cli containerd.io
+   
+   doublecheck whether docker daemon is running
+   
+   sudo docker run hello-world
+   
+su
+sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
+touch /etc/apt/sources.list.d/kubernetes.list
+```
+insert the following line 
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+Now move on as regular user
+```
+sudo apt-get update
+```
+Kubernetes requires a Pod Network for the pods to communicate. For this guide we will use Flannel although there are several other Pod Networks available.
+```
+sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+sudo modprobe br_netfilter
+sudo sysctl net.bridge.bridge-nf-call-iptables=1
+```
+We can now initialize Kubernetes by running the initialization command and passing --pod-network-cidr which is required for Flannel to work correctly
+```
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+sudo cp /etc/kubernetes/admin.conf $HOME/
+sudo chown $(id -u):$(id -g) $HOME/admin.conf
+export KUBECONFIG=$HOME/admin.conf
+
+```
+Once Kubernetes has been initialized we then install the Flannel Pod Network by running
+```
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+```
+Now you should see all the Pods with 
+```
+kubectl get pods --all-namespaces
+NAMESPACE     NAME                             READY   STATUS    RESTARTS   AGE
+default       nginx-5d66c8bcb9-74cvd           0/1     Pending   0          2m3s
+kube-system   coredns-86c58d9df4-qqzhj         0/1     Pending   0          12m
+kube-system   coredns-86c58d9df4-thnt9         0/1     Pending   0          12m
+kube-system   etcd-master                      1/1     Running   0          12m
+kube-system   kube-apiserver-master            1/1     Running   0          12m
+kube-system   kube-controller-manager-master   1/1     Running   0          12m
+kube-system   kube-proxy-tgcbv                 1/1     Running   0          12m
+kube-system   kube-scheduler-master            1/1     Running   0          12m
+```
 
 
-sudo apt install git
+
+
 
 git clone 
 https://github.com/schoenemeyer/Kubernetes-GPU-Guide.git
 
 cd ~/Kubernetes-GPU-Guide/scripts
 
-sudo swapoff -a
 
-modify  vi /etc/fstab
 
 thomas@master:~$ kubectl run my-nginx --image=nginx --replicas=2 --port=80 --expose --service-overrides='{ "spec": { "type": "LoadBalancer" }}'
 kubectl run --generator=deployment/apps.v1 is DEPRECATED and will be removed in a future version. Use kubectl run --generator=run-pod/v1 or kubectl create instead.
