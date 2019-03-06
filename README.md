@@ -81,7 +81,7 @@ Once Kubernetes has been initialized we then install the Flannel Pod Network by 
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
 ```
 Now you should see all the Pods with 
-
+```
 kubectl get pods --all-namespaces
 NAMESPACE     NAME                             READY   STATUS    RESTARTS   AGE
 default       nginx-5d66c8bcb9-74cvd           0/1     Pending   0          2m3s
