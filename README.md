@@ -45,14 +45,15 @@ sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
-   sudo apt-get update
-   
-   sudo apt-get install docker-ce docker-ce-cli containerd.io
-   
-   doublecheck whether docker daemon is running
-   
-   sudo docker run hello-world
-   
+```
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+```   
+doublecheck whether docker daemon is running
+```   
+sudo docker run hello-world
+```   
+
 su
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
 touch /etc/apt/sources.list.d/kubernetes.list
