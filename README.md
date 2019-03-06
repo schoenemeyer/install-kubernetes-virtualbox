@@ -9,7 +9,7 @@ Start with
 sudo apt-get install ssh
 ```
 
-ssh in the VM from remote host and do some modifications.
+ssh in the VM from the host and do some modifications, it is much more comfortable than inside Virtualbox terminal.
 ```
 sudo swapoff -a
 ```
