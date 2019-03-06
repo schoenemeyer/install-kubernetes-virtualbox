@@ -93,10 +93,19 @@ kube-system   kube-controller-manager-master   1/1     Running   0          12m
 kube-system   kube-proxy-tgcbv                 1/1     Running   0          12m
 kube-system   kube-scheduler-master            1/1     Running   0          12m
 ```
+You can also see the nodes that are joining the Kubernetes cluster
+```
+thomas@master:~$ kubectl get nodes
+NAME     STATUS     ROLES    AGE   VERSION
+master   NotReady   master   29m   v1.13.4
+thomas@master:~$ 
+```
 
+Usually you have workernodes in your cluster, but if yu want to run Pods on the master node you can do by untaint the master node with 
+```
+kubectl taint nodes --all node-role.kubernetes.io/master-
 
-
-
+```
 
 git clone 
 https://github.com/schoenemeyer/Kubernetes-GPU-Guide.git
