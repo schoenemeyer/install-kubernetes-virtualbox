@@ -61,11 +61,15 @@ sudo docker run hello-world
 If this is fine, then continue with the Kubernetes installation. The first step is to grab the key for the Kubernetes install.
 ```  
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
+```  
+and create a file called kubernetes.list with 
+```  
 touch /etc/apt/sources.list.d/kubernetes.list
 ```
-insert the following line   
+and insert the following line 
+```
 deb http://apt.kubernetes.io/ kubernetes-xenial main    
-
+```
 Now move on as regular user
 ```
 sudo apt-get update
