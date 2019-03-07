@@ -234,14 +234,18 @@ Cleaning up pods:
 kubectl delete deployment nginx-deployment
 ```
 
-New Example
+Lets look at the next Example. The job config below computes π to 2000 places and prints it out. It takes around 10s to complete
 ```
 kubectl create -f https://k8s.io/examples/controllers/job.yaml
 tom@master:~$ kubectl get pods
 NAME                                READY   STATUS              RESTARTS   AGE
-nginx-deployment-76bf4969df-dx996   1/1     Running             0          69m
 pi-dkj28                            0/1     ContainerCreating   0          74s
 tom@master:~$ 
+tom@master:~$ kubectl get pods
+NAME         READY   STATUS      RESTARTS   AGE
+pi-dkj28     0/1     Completed   0          25m
+tom@master:~$ 
+
 ```
 Check on the status of the Job with kubectl:
 ```
