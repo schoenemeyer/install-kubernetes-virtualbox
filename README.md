@@ -259,7 +259,6 @@ kubectl logs pi-dkj28
 3.141592653589793238462643383279502884197169399375105820974944592307816......
 ```
 
-
 If you ever have problems you can always delete your kubernetes install use kubeadm reset command. this will un-configure the kubernetes cluster.
 ```
 kubeadm reset 
