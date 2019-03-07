@@ -132,7 +132,7 @@ You can also see the nodes that are joining the Kubernetes cluster
 ```
 thomas@master:~$ kubectl get nodes
 NAME     STATUS     ROLES    AGE   VERSION
-master   NotReady   master   29m   v1.13.4
+master   Ready   master   29m   v1.13.4
 thomas@master:~$ 
 ```
 
@@ -141,6 +141,31 @@ Usually you have workernodes in your cluster, but if yu want to run Pods on the 
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
 ```
+Now you can add any number of machines by running the following on each node as root
+```
+sudo kubeadm join xxx.xxx.xxx.xx:6443 --token r7uxxxxxxxxxx --discovery-token-ca-cert-hash sha256:xxxxxxx
+```
+You will get this:
+```
+
+tom@master:~$ kubectl get nodes
+NAME     STATUS   ROLES    AGE   VERSION
+master   Ready    master   75m   v1.13.4
+worker   Ready    <none>   84s   v1.13.4
+tom@master:~$ 
+```
+kubeadm join command do not explicitly label the role of node
+You can add this yourself with kubectl label
+```
+kubectl get node --show-labels
+kubectl label node worker node-role.kubernetes.io/worker=
+tom@master:~$ kubectl get node 
+NAME     STATUS   ROLES    AGE   VERSION
+master   Ready    master   92m   v1.13.4
+worker   Ready    worker   18m   v1.13.4
+tom@master:~$ 
+```
+
 
 If you ever have problems you can always delete your kubernetes install use kubeadm reset command. this will un-configure the kubernetes cluster.
 ```
