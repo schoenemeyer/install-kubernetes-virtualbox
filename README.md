@@ -166,6 +166,74 @@ worker   Ready    worker   18m   v1.13.4
 tom@master:~$ 
 ```
 
+Now you are ready to start a simple example
+```
+
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+```
+Display information about the Deployment:
+```
+kubectl describe deployment nginx-deployment
+```
+The output is similar to this:
+```
+tom@master:~$ kubectl describe deployment nginx-deployment
+Name:                   nginx-deployment
+Namespace:              default
+CreationTimestamp:      Thu, 07 Mar 2019 10:39:43 +0100
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+                        kubectl.kubernetes.io/last-applied-configuration:
+                          {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"replica...
+Selector:               app=nginx
+Replicas:               2 desired | 2 updated | 2 total | 0 available | 2 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:        nginx:1.7.9
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   nginx-deployment-76bf4969df (2/2 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  106s  deployment-controller  Scaled up replica set nginx-deployment-76bf4969df to 2
+
+```
+List the pods created by the deployment:
+```
+kubectl get pods -l app=nginx
+NAME                                READY   STATUS              RESTARTS   AGE
+nginx-deployment-76bf4969df-pjmfq   0/1     ContainerCreating   0          3m13s
+nginx-deployment-76bf4969df-sqq8g   0/1     ContainerCreating   0          3m13s
+
+```
+You can update the deployment by applying a new YAML file
+```
+tom@master:~$ kubectl apply -f https://k8s.io/examples/application/deployment-update.yaml
+deployment.apps/nginx-deployment configured
+tom@master:~$ 
+
+```
+Cleaning up pods:
+```
+kubectl delete deployment nginx-deployment
+```
+
+
 
 If you ever have problems you can always delete your kubernetes install use kubeadm reset command. this will un-configure the kubernetes cluster.
 ```
