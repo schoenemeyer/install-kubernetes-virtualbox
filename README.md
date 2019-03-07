@@ -136,10 +136,9 @@ master   Ready   master   29m   v1.13.4
 thomas@master:~$ 
 ```
 
-Usually you have workernodes in your cluster, but if yu want to run Pods on the master node you can do by untaint the master node with 
+Usually you have workernodes in your cluster, but if you want to run Pods on the master node you can do by untaint the master node with 
 ```
 kubectl taint nodes --all node-role.kubernetes.io/master-
-
 ```
 Now you can add any number of machines by running the following on each node as root
 ```
