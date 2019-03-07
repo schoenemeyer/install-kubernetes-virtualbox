@@ -221,7 +221,8 @@ nginx-deployment-76bf4969df-pjmfq   0/1     ContainerCreating   0          3m13s
 nginx-deployment-76bf4969df-sqq8g   0/1     ContainerCreating   0          3m13s
 
 ```
-You can update the deployment by applying a new YAML file
+After a short time the Status will change into Running State.
+
 ```
 tom@master:~$ kubectl apply -f https://k8s.io/examples/application/deployment-update.yaml
 deployment.apps/nginx-deployment configured
