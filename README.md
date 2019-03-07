@@ -103,19 +103,19 @@ sudo chown $(id -u):$(id -g) $HOME/admin.conf
 export KUBECONFIG=$HOME/admin.conf
 echo "export KUBECONFIG=$HOME/admin.conf" | tee -a ~/.bashrc
 ```
+Once Kubernetes has been initialized we then install the Flannel Pod Network by running
+```
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+```
 Finally you run 
 ```
-kubeectl get nodes
+kubectl get nodes
 tom@master:~$ kubectl get nodes
 NAME     STATUS   ROLES    AGE   VERSION
 master   Ready    master   41m   v1.13.4
 
 ```
-Once Kubernetes has been initialized we then install the Flannel Pod Network by running
-```
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
-```
-Now you should see all the Pods with 
+Now you should see all the Pods with namespaces 
 ```
 kubectl get pods --all-namespaces
 NAMESPACE     NAME                             READY   STATUS    RESTARTS   AGE
