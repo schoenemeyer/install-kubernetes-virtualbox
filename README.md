@@ -234,6 +234,26 @@ Cleaning up pods:
 kubectl delete deployment nginx-deployment
 ```
 
+New Example
+```
+kubectl create -f https://k8s.io/examples/controllers/job.yaml
+tom@master:~$ kubectl get pods
+NAME                                READY   STATUS              RESTARTS   AGE
+nginx-deployment-76bf4969df-dx996   1/1     Running             0          69m
+pi-dkj28                            0/1     ContainerCreating   0          74s
+tom@master:~$ 
+```
+Check on the status of the Job with kubectl:
+```
+kubectl describe jobs/pi
+```
+
+View the standard output of one of the pods:
+```
+kubectl logs pi-dkj28
+
+3.141592653589793238462643383279502884197169399375105820974944592307816......
+```
 
 
 If you ever have problems you can always delete your kubernetes install use kubeadm reset command. this will un-configure the kubernetes cluster.
