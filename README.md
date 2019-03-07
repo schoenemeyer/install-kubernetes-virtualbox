@@ -86,15 +86,14 @@ sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address
 
 ```
 You must replace --apiserver-advertise-address with the IP of your host.
-It is important to save the line with the kubeadm join command (espeically the token)!
+It is important to save the line with the kubeadm join command (especially the token)!
 
-it is useful to add an separate account with super
+it is useful to add an separate account with superuser privileges
 ```
 sudo useradd tom -G sudo -m -s /bin/bash
 sudo passwd tom
 ```
-
-Switch into the new user account 
+Configure environmental variables as the new user and switch into the new user account 
 ```
 sudo su tom
 cd $HOME
@@ -107,6 +106,9 @@ echo "export KUBECONFIG=$HOME/admin.conf" | tee -a ~/.bashrc
 Finally you run 
 ```
 kubeectl get nodes
+tom@master:~$ kubectl get nodes
+NAME     STATUS   ROLES    AGE   VERSION
+master   Ready    master   41m   v1.13.4
 
 ```
 Once Kubernetes has been initialized we then install the Flannel Pod Network by running
