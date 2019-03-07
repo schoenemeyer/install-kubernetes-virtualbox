@@ -95,7 +95,7 @@ sudo passwd tom
 ```
 Configure environmental variables as the new user and switch into the new user account 
 ```
-sudo su tom
+su tom
 cd $HOME
 sudo whoami
 sudo cp /etc/kubernetes/admin.conf $HOME/
