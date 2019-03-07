@@ -82,10 +82,31 @@ sudo sysctl net.bridge.bridge-nf-call-iptables=1
 ```
 We can now initialize Kubernetes by running the initialization command and passing --pod-network-cidr which is required for Flannel to work correctly
 ```
-sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=xxx.xxx.xxx.xx --kubernetes-version stable-1.13
+
+```
+You must replace --apiserver-advertise-address with the IP of your host.
+It is important to save the line with the kubeadm join command (espeically the token)!
+
+it is useful to add an separate account with super
+```
+sudo useradd tom -G sudo -m -s /bin/bash
+sudo passwd tom
+```
+
+Switch into the new user account 
+```
+sudo su tom
+cd $HOME
+sudo whoami
 sudo cp /etc/kubernetes/admin.conf $HOME/
 sudo chown $(id -u):$(id -g) $HOME/admin.conf
 export KUBECONFIG=$HOME/admin.conf
+echo "export KUBECONFIG=$HOME/admin.conf" | tee -a ~/.bashrc
+```
+Finally you run 
+```
+kubeectl get nodes
 
 ```
 Once Kubernetes has been initialized we then install the Flannel Pod Network by running
@@ -117,6 +138,21 @@ Usually you have workernodes in your cluster, but if yu want to run Pods on the 
 ```
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
+```
+
+If you ever have problems you can always delete your kubernetes install use kubeadm reset command. this will un-configure the kubernetes cluster.
+```
+kubeadm reset 
+```
+login as root and reset iptables
+```
+iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
+```
+to completely remove and clean Kubernetes (installed with "apt-get"):
+```
+sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*   
+sudo apt-get autoremove  
+sudo rm -rf ~/.kube
 ```
 
 git clone 
