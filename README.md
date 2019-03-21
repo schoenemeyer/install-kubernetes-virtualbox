@@ -140,6 +140,29 @@ Usually you have workernodes in your cluster, but if you want to run Pods on the
 ```
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
+Check the taint status
+```
+thomas@master:~$ kubectl get nodes
+NAME     STATUS     ROLES    AGE   VERSION
+master   Ready      master   14d   v1.13.4
+```
+Now look into the details of the node called master
+```
+kubectl describe nodes master 
+```
+If you look for taints, you will see <none> if the master is untained.
+If you see    
+```    
+    Taints:             node-role.kubernetes.io/master:NoSchedule
+```
+then no jobs will be placed on the master node.    
+```
+thomas@master:~$ kubectl describe nodes master | grep -i taints
+Taints:             <none>
+```
+
+
+
 Now you can add any number of machines by running the following on each node as root
 ```
 sudo kubeadm join xxx.xxx.xxx.xx:6443 --token r7uxxxxxxxxxx --discovery-token-ca-cert-hash sha256:xxxxxxx
