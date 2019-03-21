@@ -168,12 +168,6 @@ if you see the "NoSchedule", then no jobs will be placed on the master node.
     
 ```
 
-```
-
-Taints:             <none>
-```
-
-
 
 Now you can add any number of machines by running the following on each node as root
 ```
