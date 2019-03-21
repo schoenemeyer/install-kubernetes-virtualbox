@@ -150,14 +150,26 @@ Now look into the details of the node called master
 ```
 kubectl describe nodes master 
 ```
-If you look for taints, you will see <none> if the master is untained.
-If you see    
-```    
-    Taints:             node-role.kubernetes.io/master:NoSchedule
-```
-then no jobs will be placed on the master node.    
+or just
+
 ```
 thomas@master:~$ kubectl describe nodes master | grep -i taints
+```
+
+If you look for taints, you will see "<none>" if the master is untained and you can place jobs there.
+
+```    
+    Taints:             <none>
+```    
+if you see the "NoSchedule", then no jobs will be placed on the master node.    
+
+```    
+    Taints:             node-role.kubernetes.io/master:NoSchedule 
+    
+```
+
+```
+
 Taints:             <none>
 ```
 
