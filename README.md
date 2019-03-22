@@ -302,3 +302,14 @@ sudo apt-get autoremove
 sudo rm -rf ~/.kube
 ```
 
+Basic commands
+
+kubectl config view
+kubectl describe pods
+
+priority of pods Pod Priority and Preemption
+https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+
+
+
+
