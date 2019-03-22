@@ -310,8 +310,6 @@ kubectl describe pods
 priority of pods Pod Priority and Preemption
 https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
 
-kubectl get priorityclasses
-
 kubectl apply -f  priority.yaml
 ```
 apiVersion: scheduling.k8s.io/v1beta1
@@ -321,15 +319,15 @@ metadata:
 value: 1000000
 globalDefault: false
 description: "Use this class for XYZ service pods only."
-
 ```
-
+kubectl get priorityclasses
+```
 tom@master:~$ kubectl get priorityclasses
 NAME                      VALUE        GLOBAL-DEFAULT   AGE
 hig-priority              1000000      false            3s
 system-cluster-critical   2000000000   false            15d
 system-node-critical      2000001000   false            15d
 tom@master:~$ 
-
+```
 
 
