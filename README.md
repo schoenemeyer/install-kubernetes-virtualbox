@@ -259,7 +259,7 @@ tom@master:~$
 ```
 Cleaning up pods:
 ```
-kubectl delete deployment nginx-deployment
+kubectl delete pod nginx-deployment-76bf4969df-sqq8g
 ```
 
 Lets look at the next Example. The job config below computes π to 2000 places and prints it out. It takes around 10s to complete
