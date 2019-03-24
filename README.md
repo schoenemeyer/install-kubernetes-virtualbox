@@ -330,4 +330,12 @@ system-node-critical      2000001000   false            15d
 tom@master:~$ 
 ```
 
+Testing:
+The higher the value, the higher the priority. 
+
+## Assigning priority to your pods
+
+
+
+
 
