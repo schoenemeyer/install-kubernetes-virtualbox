@@ -339,4 +339,12 @@ The higher the value, the higher the priority.
 Create Deployment
 
 
+Delete all kube-system namespaces
 
+kubectl delete --all pods --namespace=kube-system
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl get nodes -o wide
+
+kubectl get pods --all-namespaces
+kubectl get pods --all-namespaces
+kubectl describe  po  pod1
