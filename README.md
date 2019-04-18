@@ -410,3 +410,4 @@ kubectl get nodes -o wide
 kubectl get pods --all-namespaces
 kubectl get pods --all-namespaces
 kubectl describe  po  pod1
+
