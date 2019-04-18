@@ -362,6 +362,68 @@ from the local workstation (e.g. master)
 the dashboard will be available under http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
 
+Now we create a (hostPath) PersistentVolume, that be shared by all pods. Kubernetes supports hostPath for development and testing on a single-node cluster. It uses a file or directory on the Node to emulate network-attached storage
+
+In your shell of any node in the cluster , create a /mnt/data directory:
+echo 'Hello from Kubernetes storage' > /mnt/data/index.html
+
+In a production cluster, you would not use hostPath. Instead a cluster administrator would provision a network resource like a persistent disk on-prem or in the cloud. 
+
+Create the configuration file for the hostPath PersistentVolume:
+
+```
+pods/storage/pv-volume.yaml 
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: task-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+```
+Now create the PersistentVolume:
+
+```
+kubectl apply -f pv-volume.yaml
+
+```
+View the PersistentVolume
+```
+kubectl get pv task-pv-volume
+```
+you might get thisone
+
+```
+error: unable to recognize "./pv-volume.yaml": Get http://localhost:8080/api?timeout=32s: dial tcp 127.0.0.1:8080: connect: connection refused
+```
+
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+chmod +x kops-linux-amd64
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+
+
+https://github.com/kubernetes/kops.git
+
+then
+```
+# Find your cluster name
+kops get clusters
+# set the clustername as a var
+clustername=<clustername>
+# export the KUBECONFIG variable, which kubectl uses to find the kubeconfig file
+export KUBECONFIG=~/.kube/${clustername}
+# download the kubeconfig file locally using kops
+kops export kubecfg --name ${clustername} --config=~$KUBECONFIG
+```    
+
+
 Other Basic commands
 
 kubectl config view
