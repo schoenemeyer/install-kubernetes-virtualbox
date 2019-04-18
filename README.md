@@ -302,10 +302,55 @@ sudo apt-get autoremove
 sudo rm -rf ~/.kube
 ```
 
-Basic commands
+Access the Dashboard
+
+Create Service Account with name admin-user in namespace kube-system first by creating the file dashboard-adminuser.yaml with the content below:
+
+```
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kube-system
+```
+then we use kubectl apply -f dashboard-adminuser.yaml to create the service account
+
+Now we create ClusterRoleBinding for our ServiceAccount.
+
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kube-system
+```
+you can now get the token for the dashboard by this command
+
+```
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+```
+Then we start 
+```
+kubectl proxy 
+```
+from the local workstation (e.g. master)
+
+the dashboard will be available under http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
+
+Other Basic commands
 
 kubectl config view
 kubectl describe pods
+
+
 
 priority of pods Pod Priority and Preemption
 https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
