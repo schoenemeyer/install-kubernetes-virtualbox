@@ -3,7 +3,9 @@
 This recipe will lead you through the installation of Kubernetes on a single Workstation running VirtualBox.
 I created two VMs (master and slave with Ubuntu 16.04.05.
 The master was created with 2 cores and 2GB RAM, the slave with 1 core and 1 GB.
-I used bridged adapter for the Network.
+I used two network adapter (NAT and host-only)
+For detailed instructions visit https://medium.com/@KevinHoffman/building-a-kubernetes-cluster-in-virtualbox-with-ubuntu-22cd338846dd
+
 Start with 
 ```
 sudo apt-get install ssh
@@ -80,6 +82,15 @@ sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 sudo modprobe br_netfilter
 sudo sysctl net.bridge.bridge-nf-call-iptables=1
 ```
+Before we initialize Kubernetes, we should think of the network plugin to deploy later.
+Options are Multus, Calico and others. 
+Pick your network plugin before you run kubeadm init.
+```
+git clone https://github.com/intel/multus-cni.git
+```
+
+
+
 We can now initialize Kubernetes by running the initialization command and passing --pod-network-cidr which is required for Flannel to work correctly
 ```
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=xxx.xxx.xxx.xx --kubernetes-version stable-1.13
@@ -106,6 +117,12 @@ echo "export KUBECONFIG=$HOME/admin.conf" | tee -a ~/.bashrc
 Once Kubernetes has been initialized we then install the Flannel Pod Network by running
 ```
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+```
+or with Multus CNI 
+```
+
+cat ./images/{multus-daemonset.yml,flannel-daemonset.yml} | kubectl apply -f -
+
 ```
 Finally you run 
 ```
