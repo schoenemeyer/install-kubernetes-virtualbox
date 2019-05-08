@@ -425,6 +425,9 @@ task-pv-volume   107374182400m   RWO            Retain           Bound    defaul
 kube@kubemaster:~$ 
 ```
 
+
+<img src="https://github.com/schoenemeyer/install-kubernetes-virtualbox/blob/master/figures/Screenshot%20at%202019-05-08%2017-28-16.png" width="552">
+
 you might get thisone
 
 ```
