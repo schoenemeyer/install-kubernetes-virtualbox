@@ -373,7 +373,10 @@ echo 'Hello from Kubernetes storage' > /mnt/data/index.html
 
 In a production cluster, you would not use hostPath. Instead a cluster administrator would provision a network resource like a persistent disk on-prem or in the cloud. 
 
-Create the configuration file for the hostPath PersistentVolume:
+Get the config file 
+https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/storage/pv-volume.yaml
+
+and modify the configuration file for the hostPath PersistentVolume if necessary (e.g. size)
 
 ```
 pods/storage/pv-volume.yaml 
@@ -394,6 +397,7 @@ spec:
 ```
 Now create the PersistentVolume:
 
+
 ```
 kubectl apply -f pv-volume.yaml
 
@@ -402,6 +406,25 @@ View the PersistentVolume
 ```
 kubectl get pv task-pv-volume
 ```
+Now create the Volume Claim
+
+wet https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/storage/pv-claim.yaml
+Modify it to your needs and run apply
+
+```
+kubectl apply -f pv-claim.yaml
+
+kubectl get pv task-pv-volume
+
+```
+you should something like this
+```
+kube@kubemaster:~$ kubectl get pv task-pv-volume
+NAME             CAPACITY        ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                   STORAGECLASS   REASON   AGE
+task-pv-volume   107374182400m   RWO            Retain           Bound    default/task-pv-claim   manual                  4m21s
+kube@kubemaster:~$ 
+```
+
 you might get thisone
 
 ```
