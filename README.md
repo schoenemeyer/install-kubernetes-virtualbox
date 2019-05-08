@@ -424,11 +424,11 @@ NAME             CAPACITY        ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM 
 task-pv-volume   107374182400m   RWO            Retain           Bound    default/task-pv-claim   manual                  4m21s
 kube@kubemaster:~$ 
 ```
+or the dashboard view
 
+<img src="https://github.com/schoenemeyer/install-kubernetes-virtualbox/blob/master/figures/Screenshot%20at%202019-05-08%2017-28-16.png" width="652">
 
-<img src="https://github.com/schoenemeyer/install-kubernetes-virtualbox/blob/master/figures/Screenshot%20at%202019-05-08%2017-28-16.png" width="552">
-
-you might get thisone
+Just in case you this error:
 
 ```
 error: unable to recognize "./pv-volume.yaml": Get http://localhost:8080/api?timeout=32s: dial tcp 127.0.0.1:8080: connect: connection refused
