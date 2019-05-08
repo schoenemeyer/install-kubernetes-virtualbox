@@ -364,8 +364,12 @@ the dashboard will be available under http://localhost:8001/api/v1/namespaces/ku
 
 Now we create a (hostPath) PersistentVolume, that be shared by all pods. Kubernetes supports hostPath for development and testing on a single-node cluster. It uses a file or directory on the Node to emulate network-attached storage
 
-In your shell of any node in the cluster , create a /mnt/data directory:
+In your shell of any node in the cluster , create a /mnt/data directory and write a file
+
+```
 echo 'Hello from Kubernetes storage' > /mnt/data/index.html
+```
+
 
 In a production cluster, you would not use hostPath. Instead a cluster administrator would provision a network resource like a persistent disk on-prem or in the cloud. 
 
