@@ -505,18 +505,23 @@ kubectl describe  po  pod1
 
 
 
-Another way to deploy Kubernetes productive cluster
+# Another convenient way to deploy Kubernetes productive cluster
+After docker is installed properly, you can git clone kubespray
 
-git clone kubespray
 
+https://github.com/kubernetes-sigs/kubespray
+and follow the instructions.
+You may have to install two more packages:
+```
 pip3 install ruamel.yaml
 
-declare -a IPS= .....
+apt-get install sshpass
+```
+Then run 
+```
+ansible-playbook -i inventory/mycluster/hosts.yml --become --become-user=root cluster.yml -k -K
+```
 
-from master
-cd .ssh
-ssh-keygen -t rsa -b 4096
-ssh-copy-id user@serverip 
 
 
 
