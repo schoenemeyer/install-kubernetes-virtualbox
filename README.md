@@ -503,3 +503,21 @@ kubectl get pods --all-namespaces
 kubectl get pods --all-namespaces
 kubectl describe  po  pod1
 
+
+
+Another way to deploy Kubernetes productive cluster
+
+git clone kubespray
+
+pip3 install ruamel.yaml
+
+declare -a IPS= .....
+
+from master
+cd .ssh
+ssh-keygen -t rsa -b 4096
+ssh-copy-id user@serverip 
+
+
+
+
