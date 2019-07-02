@@ -524,11 +524,8 @@ ansible-playbook -i inventory/mycluster/hosts.yml --become --become-user=root cl
 ```
 
 ## HELM
-
-The fastet way is to get binaries from 
-
-Every release of Helm provides binary releases for a variety of OSes. These binary versions can be manually downloaded and installed.
-
+Helm is a tool for managing Kubernetes charts. Charts are packages of pre-configured Kubernetes resources.
+Every release of Helm provides binary releases for a variety of OSes. These binary versions can be manually downloaded and installed. 
 Download your desired version from https://github.com/helm/helm/releases and unpack it
 
 ```
