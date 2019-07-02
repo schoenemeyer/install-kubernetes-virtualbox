@@ -523,28 +523,31 @@ ansible-playbook -i inventory/mycluster/hosts.yml --become --become-user=root cl
 
 ```
 
-
 ## HELM
 
 The fastet way is to get binaries from 
 
 Every release of Helm provides binary releases for a variety of OSes. These binary versions can be manually downloaded and installed.
 
-Download your desired version from https://github.com/helm/helm/releases
+Download your desired version from https://github.com/helm/helm/releases and unpack it
 
-Unpack it (
 ```
 tar -zxvf helm-v2.14.1-linux-amd64.tar.tgz)
 ```
-Find the helm binary in the unpacked directory, and move it to its desired destination 
+Move the helm binary to its desired destination 
 ```
 mv linux-amd64/helm /usr/local/bin/helm
 ```
-
 The easiest way to install tiller into the cluster is simply to run helm init
 from master
 ```
 helm init
+```
+
+Doublecheck if tiller is running with 
+
+```
+kubectl get pods --namepsace kube-system
 ```
 
 
