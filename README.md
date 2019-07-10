@@ -544,7 +544,7 @@ helm init
 Doublecheck if tiller is running with 
 
 ```
-kubectl get pods --namepsace kube-system
+kubectl get pods --namespace kube-system
 ```
 
 
