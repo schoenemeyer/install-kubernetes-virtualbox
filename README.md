@@ -184,7 +184,7 @@ if you see the "NoSchedule", then no jobs will be placed on the master node.
     Taints:             node-role.kubernetes.io/master:NoSchedule 
     
 ```
-
+kubectl get nodes -o json | jq .items[].spec.taints
 
 Now you can add any number of machines by running the following on each node as root
 ```
@@ -546,13 +546,41 @@ Doublecheck if tiller is running with
 ```
 kubectl get pods --namespace kube-system
 ```
+##Install Polyaxon
+
+https://docs.polyaxon.com/setup/kubernetes/
+
+create config.yaml
+
+sudo helm repo add polyaxon https://charts.polyaxon.com
+
+sudo helm repo update
+
+kubectl get all
 
 
+delete pod
+kubectl delete pod <podname>
+    
+ube@kubemaster:~$ kubectl get all
+NAME                            READY   STATUS              RESTARTS   AGE
+pod/busybox1-65648b844c-bvpbf   0/1     ContainerCreating   0          110s
+pod/fiobench-z964v              0/1     Pending             0          4m22s
+pod/pi-g6zvt                    0/1     Completed           0          83d
 
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   83d
 
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/busybox1   0/1     1            0           83d
 
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/busybox1-65648b844c   1         1         0       83d
 
-
-
-
+NAME                 COMPLETIONS   DURATION   AGE
+job.batch/fiobench   0/1           13h        13h
+job.batch/pi         1/1           113s       83d
+kube@kubemaster:~$ kubectl delete pod/busybox1-65648b844c-bvpbf pod/fiobench-z964v
+pod "busybox1-65648b844c-bvpbf" deleted
+pod "fiobench-z964v" deleted
 
