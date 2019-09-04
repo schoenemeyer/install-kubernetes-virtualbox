@@ -6,6 +6,9 @@ The master was created with 2 cores and 2GB RAM, the slave with 1 core and 1 GB.
 I used two network adapter (NAT and host-only)
 For detailed instructions visit https://medium.com/@KevinHoffman/building-a-kubernetes-cluster-in-virtualbox-with-ubuntu-22cd338846dd
 
+# If you have a NVIDIA GPU and ubuntu 16.04 installed 
+follow this excellent blog  https://devblogs.nvidia.com/maximizing-nvidia-dgx-kubernetes/
+
 Start with 
 ```
 sudo apt-get install ssh
